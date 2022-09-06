@@ -10,6 +10,6 @@
 #include <Adafruit_VS1053.h>
 
 void vsAudioSetup();
-void startAudio();
+void startAudio(int num);
 void stopAudio();
 #endif

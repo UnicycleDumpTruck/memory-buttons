@@ -37,11 +37,15 @@ void vsAudioSetup()
     digitalWrite(SHIELD_CS, HIGH);
 }
 
-void startAudio()
+void startAudio(int num)
 {
+    char filename[6];
+    sprintf(filename, "/%d.wav", num);
     Serial.println(F("Playing Sound"));
     digitalWrite(SHIELD_CS, LOW);
-    musicPlayer.startPlayingFile("/track002.mp3");
+    musicPlayer.stopPlaying();
+    delay(10);
+    musicPlayer.startPlayingFile(filename);
     digitalWrite(SHIELD_CS, HIGH);
 }
 

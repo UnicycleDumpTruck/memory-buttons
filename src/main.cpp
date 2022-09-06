@@ -103,6 +103,7 @@ void clearStrip(){
 }
 
 void processButton(int input) {
+  startAudio(input);
   if (lit[input] == false) { // if this button not lit
     Serial.printf("nlp: %d, cor_pos: %d", next_lit_position, correct_position[input]);
 
@@ -174,10 +175,9 @@ void setup()
   // }
   Serial.printf("\nProject version v%s, built %s\n", VERSION, BUILD_TIMESTAMP);
   Serial.println("Setup function commencing...");
-  // vsAudioSetup();
+  vsAudioSetup();
   delay(100);
   // radioSetup();
-
 
   if (!mcp.begin_I2C())
   {
@@ -186,33 +186,14 @@ void setup()
       //    ;
   }
 
-  // configure button pin for input with pull up
-  // mcp.pinMode(BUTTON_PIN, INPUT_PULLUP);
-
   for(int i=0; i<8; i++) {
     mcp.pinMode(i, INPUT_PULLUP);
     buttons[i].last_state = mcp.digitalRead(i);
     buttons[i].last_time_changed = millis();
   }
 
-
-
-  // BOUNCE SETUP
-
-  // SELECT ONE OF THE FOLLOWING :
-  // 1) IF YOUR INPUT HAS AN INTERNAL PULL-UP
-  // bounce.attach(BOUNCE_PIN, INPUT_PULLUP); // USE INTERNAL PULL-UP
-  // 2) IF YOUR INPUT USES AN EXTERNAL PULL-UP
-  // bounce.attach( BOUNCE_PIN, INPUT ); // USE EXTERNAL PULL-UP
-
-  // DEBOUNCE INTERVAL IN MILLISECONDS
-  // bounce.interval(5); // interval in ms
-
-
   strip.begin(); // Initialize pins for output
   strip.show();  // Turn all LEDs off ASAP
-
-
 
   Watchdog.enable(4000);
   Serial.println("Setup Complete");
