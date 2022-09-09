@@ -15,8 +15,8 @@
 #define NUMPIXELS 16 // Number of LEDs in strip
 
 // Here's how to control the LEDs from any two pins:
-#define DATAPIN A4
-#define CLOCKPIN A5
+#define DATAPIN A3
+#define CLOCKPIN A4
 Adafruit_DotStar strip(NUMPIXELS, DATAPIN, CLOCKPIN, DOTSTAR_BRG);
 // The last parameter is optional -- this is the color data order of the
 // DotStar strip, which has changed over time in different production runs.
@@ -156,6 +156,14 @@ void processButton(int input) {
   }
   Serial.println(" ");
   strip.show();
+
+  if (next_lit_position == 8) {
+    startAudio(8);
+    delay(5000);
+    clearStrip();
+  }
+
+
 } // End processButton()
 
 
